@@ -35,13 +35,8 @@
 <h1 align="center">Resizer-py</h1>
 
   <p align="center">
-    Resize images with ease
+    <h3>Resize images with ease</h3>
     <br />
-    <a href="https://github.com/emcassi/resizer-py"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/emcassi/resizer-py">View Demo</a>
-    ·
     <a href="https://github.com/emcassi/resizer-py/issues">Report Bug</a>
     ·
     <a href="https://github.com/emcassi/resizer-py/issues">Request Feature</a>
