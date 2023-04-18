@@ -124,16 +124,16 @@ Using resizer-py is simple. Run the script from the command line using the follo
 
 ```s
 (Resize all images in a directory) 
-      python resize.py {width} {height} {directory}
-      python resize.py {size} {directory}
+      python resizer.py {width} {height} {directory}
+      python resizer.py {size} {directory}
 
 (Resize a specific file)
-      python resize.py {width} {height} {filename}
-      python resize.py {size} {filename}
+      python resizer.py {width} {height} {filename}
+      python resizer.py {size} {filename}
 
 (Resize a collection of files)
-      python resize.py {width} {height} {filename1} {filename2}
-      python resize.py {size} {filename1} {filename2}
+      python resizer.py {width} {height} {filename1} {filename2}
+      python resizer.py {size} {filename1} {filename2}
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
