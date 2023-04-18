@@ -189,5 +189,5 @@ Project Link: [https://github.com/emcassi/resizer-py](https://github.com/emcassi
 [issues-url]: https://github.com/emcassi/resizer-py/issues
 [license-shield]: https://img.shields.io/github/license/emcassi/resizer-py.svg?style=for-the-badge
 [license-url]: https://github.com/emcassi/resizer-py/blob/master/LICENSE.txt
-[Pillow]: https://img.shields.io/badge/pillow-000000?style=for-the-badge&logo=python&logoColor=white
-[Pillow-url]: https://nextjs.org/
+[Pillow]: https://img.shields.io/badge/pillow-577ea3?style=for-the-badge&logo=python&logoColor=ffd242
+[Pillow-url]: https://pypi.org/project/Pillow/
