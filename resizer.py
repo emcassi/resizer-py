@@ -29,6 +29,8 @@ def resize_image(path, img_width, img_height):
             return
         _resized = img.resize((img_width, img_height))
         _resized.save(path)
+    
+    print(Colors.SUCCESS + "Successfully resized " + path + Colors.NORMAL)
 
 
 def resize_images(dirname, img_width, img_height):
@@ -38,19 +40,22 @@ def resize_images(dirname, img_width, img_height):
         if check_if_supported_type(_file):
             resize_image(dirname + "/" + _file, img_width, img_height)
 
+    print(Colors.SUCCESS + "Successfully resized all images in " + dirname + Colors.NORMAL)
+
 
 def show_help():
     valid_format = """%s(Resize all images in a directory) %s
-\t$ python resize.py {width} {height} {directory}
-\t$ python resize.py {size} {directory}
+\t$ python resizer.py {width} {height} {directory}
+\t$ python resizer.py {size} {directory}
 %s(Resize a specific file)%s
-\t$ python resize.py {width} {height} {filename}
-\t$ python resize.py {size} {filename}
+\t$ python resizer.py {width} {height} {filename}
+\t$ python resizer.py {size} {filename}
 %s(Resize a collection of files)%s
-\t$ python resize.py {width} {height} {filename1} {filename2}
-\t$ python resize.py {size} {filename1} {filename2}""" % (Colors.HEADER, Colors.INFO, Colors.HEADER, Colors.INFO, Colors.HEADER, Colors.INFO)
+\t$ python resizer.py {width} {height} {filename1} {filename2}
+\t$ python resizer.py {size} {filename1} {filename2}""" % (Colors.HEADER, Colors.NORMAL, Colors.HEADER, Colors.NORMAL, Colors.HEADER, Colors.NORMAL)
 
     print(Colors.BOLD + "Please enter your command in the following format: " + Colors.NORMAL + "\n" + valid_format)
+    print(Colors.HEADER + "\n\nThe supported image types are: " + Colors.NORMAL + "\n\t" + ", ".join(supported_extensions))
 
 
 if sys.argv[1] == "help":
@@ -59,11 +64,11 @@ else:
 
     match len(sys.argv):
         case 0:
-            print("Invalid arguments, enter `python resize.py help` for further help")
+            print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
         case 1:
-            print("Invalid arguments, enter `python resize.py help` for further help")
+            print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
         case 2:
-            print("Invalid arguments, enter `python resize.py help` for further help")
+            print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
         case 3:
             size = int(sys.argv[1])
             arg = sys.argv[2]
@@ -92,7 +97,7 @@ else:
                 for count in range(2, len(sys.argv)):
                     arg = sys.argv[count]
                     if os.path.isdir(arg):
-                        print("Invalid arguments: only enter files, not directories, if providing a list")
+                        print(Colors.FAIL + "Invalid arguments: only enter files, not directories, if providing a list" + Colors.NORMAL)
                     elif os.path.isfile(arg):
                         files.append(arg)
 
@@ -138,12 +143,6 @@ else:
                     elif size:
                         resize_image(file, size, size)
 
+            else:
+                print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
 
-# python resize.py {width} {height} {directory}
-# python resize.py {width/height} {directory}
-
-# python resize.py {width} {height} {filename}
-# python resize.py {width/height} {filename}
-
-# python resize.py {width} {height} {filename1} {filename2} ...
-# python resize.py {width/height} {filename1} {filename2} ...
