@@ -109,7 +109,8 @@ else:
                 elif file:
                     resize_image(file, width, height)
         case _:
-
+            width = False
+            size = False
             if isinstance(sys.argv[2], int):
                 width = int(sys.argv[1])
                 height = int(sys.argv[2])
@@ -123,7 +124,7 @@ else:
             elif width:
                 start = 3
 
-            for count in range(start, sys.argv.count()):
+            for count in range(start, len(sys.argv)):
                 arg = sys.argv[count]
                 if os.path.isdir(arg):
                     print("Invalid arguments: only enter files, not directories, if providing a list")
