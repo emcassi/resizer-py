@@ -140,7 +140,7 @@ Please note that the {size, width, height} arguments can be either a percentage 
   
   Example: 
   ```sh
-  $ python resizer.py 50% 50% /home/user/Pictures   # will resize all images in the directory to 50% of their original size.
+  $ python resizer.py 50% /home/user/Pictures   # will resize all images in the directory to 50% of their original size.
 
   $ python resizer.py 256 128 /home/user/Pictures   # will resize all images in the directory to 256x128 pixels.
 
