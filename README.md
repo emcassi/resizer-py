@@ -122,19 +122,29 @@ To get a local copy up and running follow these simple example steps.
 
 Using resizer-py is simple. Run the script from the command line using the following format
 
-```s
-(Resize all images in a directory) 
-      python resizer.py {width} {height} {directory}
-      python resizer.py {size} {directory}
+```sh
+# Resize all images in a directory 
+    $ python resizer.py {width} {height} {directory}
+    $ python resizer.py {size} {directory}
 
-(Resize a specific file)
-      python resizer.py {width} {height} {filename}
-      python resizer.py {size} {filename}
+# Resize a specific file
+    $ python resizer.py {width} {height} {filename}
+    $ python resizer.py {size} {filename}
 
-(Resize a collection of files)
-      python resizer.py {width} {height} {filename1} {filename2}
-      python resizer.py {size} {filename1} {filename2}
+# Resize a collection of files
+    $ python resizer.py {width} {height} {filename1} {filename2}
+    $ python resizer.py {size} {filename1} {filename2}
 ```
+
+Please note that the {size, width, height} arguments can be either a percentage (ending with '%') or a number representing the number of pixels for the axis.
+  
+  Example: 
+  ```sh
+  $ python resizer.py 50% 50% /home/user/Pictures   # will resize all images in the directory to 50% of their original size.
+
+  $ python resizer.py 256 128 /home/user/Pictures   # will resize all images in the directory to 256x128 pixels.
+
+  ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
