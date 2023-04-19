@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 import os
 import sys
 
@@ -7,7 +7,6 @@ class Colors:
     FAIL = '\033[91m'
     HEADER = '\033[95m'
     SUCCESS = '\033[92m'
-    INFO = '\033[30m'
     BOLD= '\033[1m'
     NORMAL = '\033[0m'
 
@@ -23,15 +22,30 @@ def check_if_supported_type(filename):
     return False
 
 
-def resize_image(path, img_width, img_height):
-    with Image.open(path) as img:
-        if img.size == (img_width, img_height):
-            return
-        _resized = img.resize((img_width, img_height))
-        _resized.save(path)
-    
-    print(Colors.SUCCESS + "Successfully resized " + path + Colors.NORMAL)
-
+def resize_image(path, img_width, img_height):   
+    try :    
+        with Image.open(path) as img:
+            if img_width.endswith("%"):
+                img_width = int(img_width[:-1])
+                img_width = img_width * img.size[0] // 100
+            else:
+                img_width = int(img_width)
+            if img_height.endswith("%"):
+                img_height = int(img_height[:-1])
+                img_height = img_height * img.size[1] // 100
+            else:
+                img_height = int(img_height)
+            if img.size == (img_width, img_height):
+                return
+            _resized = img.resize((img_width, img_height))
+            _resized.save(path)
+        print(Colors.SUCCESS + "Successfully resized " + path + " to size: %dx%d"%(img_width, img_height) + Colors.NORMAL)
+    except FileNotFoundError as e:
+        print(Colors.FAIL + "File not found: " + path + Colors.NORMAL)
+    except UnidentifiedImageError as e:
+        print(Colors.FAIL + "Invalid file: " + path + Colors.NORMAL)
+    except TypeError as e:
+        print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
 
 def resize_images(dirname, img_width, img_height):
     _files = os.listdir(dirname)
@@ -56,12 +70,12 @@ def show_help():
 
     print(Colors.BOLD + "Please enter your command in the following format: " + Colors.NORMAL + "\n" + valid_format)
     print(Colors.HEADER + "\n\nThe supported image types are: " + Colors.NORMAL + "\n\t" + ", ".join(supported_extensions))
-
-
+    print(Colors.HEADER + "\n\nPlease note that the {size, width, height} arguments can be either a percentage (ending with '%') or a number representing the number of pixels for the axis.\n" + Colors.NORMAL)
+    print(Colors.NORMAL + "Example: " + Colors.NORMAL + "\n\t$ python resizer.py 50% 50% /home/user/Pictures   # will resize all images in the directory to 50% of their original size")
+    print(Colors.NORMAL + "Example: " + Colors.NORMAL + "\n\t$ python resizer.py 256 128 /home/user/Pictures   # will resize all images in the directory to 256x128 pixels\n")
 if sys.argv[1] == "help":
     show_help()
 else:
-
     match len(sys.argv):
         case 0:
             print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
@@ -70,8 +84,16 @@ else:
         case 2:
             print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
         case 3:
-            size = int(sys.argv[1])
+            size = sys.argv[1]
             arg = sys.argv[2]
+
+            if size.endswith("%"):
+                if not size[:-1].isdigit():
+                    print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
+                    exit(-1)
+            elif not size.isdigit():
+                print(Colors.FAIL + "Invalid arguments, enter `python resizer.py help` for further help" + Colors.NORMAL)
+                exit(-1)
 
             direc = False
             file = False
@@ -84,12 +106,12 @@ else:
             elif file:
                 resize_image(file, size, size)
         case 4:
-
-            if isinstance(sys.argv[2], int):
-                width = int(sys.argv[1])
-                height = int(sys.argv[2])
+            size = False
+            if sys.argv[2][:-1].isdigit():
+                width = sys.argv[1]
+                height = sys.argv[2]
             else:
-                size = int(sys.argv[1])
+                size = sys.argv[1]
 
             files = []
 
@@ -104,6 +126,7 @@ else:
                 for file in files:
                     resize_image(file, size, size)
             else:
+                direc = False
                 arg = sys.argv[3]
                 if os.path.isdir(arg):
                     direc = arg
@@ -116,11 +139,11 @@ else:
         case _:
             width = False
             size = False
-            if isinstance(sys.argv[2], int):
-                width = int(sys.argv[1])
-                height = int(sys.argv[2])
+            if sys.argv[2][:-1].isdigit():
+                width = sys.argv[1]
+                height = sys.argv[2]
             else:
-                size = int(sys.argv[1])
+                size = sys.argv[1]
 
             files = []
 
