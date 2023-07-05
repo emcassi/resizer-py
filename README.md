@@ -177,7 +177,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@emcassi_](https://twitter.com/emcassi_) - alex.wayne.dev@gmail.com
+Alex Wayne - [@emcassi_](https://twitter.com/emcassi_) - alex.wayne.dev@gmail.com
 
 Project Link: [https://github.com/emcassi/resizer-py](https://github.com/emcassi/resizer-py)
 
